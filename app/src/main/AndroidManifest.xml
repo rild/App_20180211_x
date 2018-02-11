@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="nippon_hack.picture_view">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/title_activity_login"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name="nippon_hack.picture_view.LoginActivity" />
+        <activity
+            android:name="nippon_hack.picture_view.TopActivity"
+            android:label="@string/title_activity_top"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="nippon_hack.picture_view.OptionActivity"
+            android:label="@string/title_activity_option" />
+        <activity
+            android:name="nippon_hack.picture_view.UserOptionActivity"
+            android:label="@string/title_activity_user_option" />
+        <activity android:name="nippon_hack.picture_view.PictureViewActivity"></activity>
+    </application>
+
+</manifest>
