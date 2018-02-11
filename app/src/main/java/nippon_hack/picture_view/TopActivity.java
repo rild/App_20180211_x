@@ -1,12 +1,15 @@
 package nippon_hack.picture_view;
 
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +17,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -217,8 +221,29 @@ public class TopActivity extends AppCompatActivity
         return true;
     }
 
+    //画像選択画面を表示
     public void picture_select(View v){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent,"画像を選択"), REQUEST_GALLERY);
+    }
 
+    //選択された
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_GALLERY && resultCode == RESULT_OK) {
+            ContentResolver cr = getContentResolver();
+            String[] columns = {
+                    MediaStore.Images.Media.DATA
+            };
+            Cursor c = cr.query(data.getData(), columns, null, null, null);
+            int column_index = c.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            c.moveToFirst();
+            String path = c.getString(column_index);
+            Log.v("~~~~~~~~~〜〜〜〜〜〜〜〜〜~~~~", "path=" + path);
+        }
     }
 }
 
